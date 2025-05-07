@@ -3,6 +3,8 @@
 import FormField from "@/components/FormField";
 import {useForm} from "react-hook-form";
 import {useState} from "react";
+import {signIn} from "next-auth/react";
+import {useRouter} from "next/navigation";
 
 type FormData = {
     email: string;
@@ -19,6 +21,7 @@ type LoginResponse = {
 
 export default function Login() {
     const [serverError, setServerError] = useState("");
+    const router = useRouter();
 
     const {
         register,
@@ -27,43 +30,55 @@ export default function Login() {
     } = useForm<FormData>();
 
     const onSubmit = async (data: FormData) => {
-        setServerError("");
+        // setServerError("");
+        //
+        // if(!data.password || !data.email) {
+        //     setServerError("Email and password are required");
+        //     return;
+        // }
+        //
+        // const res = await fetch("/api/login", {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify(data),
+        // });
+        //
+        // let result: LoginResponse;
+        //
+        // try {
+        //     result = await res.json();
+        // } catch (e) {
+        //     const message =
+        //         e instanceof Error
+        //             ? e.message
+        //             : typeof e === "string"
+        //                 ? e
+        //                 : "Something went wrong";
+        //
+        //     setServerError(message);
+        //     return;
+        // }
+        //
+        // if(!res.ok && "error" in result) {
+        //     setServerError(result?.error || "Something went wrong");
+        //     return;
+        // }
+        //
+        // console.log("Login successful", result);
 
-        if(!data.password || !data.email) {
-            setServerError("Email and password are required");
-            return;
-        }
-
-        const res = await fetch("/api/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
+        const res = await signIn("credentials", {
+            email: data.email,
+            password: data.password,
+            redirect: false,
         });
 
-        let result: LoginResponse;
-
-        try {
-            result = await res.json();
-        } catch (e) {
-            const message =
-                e instanceof Error
-                    ? e.message
-                    : typeof e === "string"
-                        ? e
-                        : "Something went wrong";
-
-            setServerError(message);
-            return;
+        if(res?.error) {
+            setServerError(res.error);
+        } else {
+            router.push("/dashboard");
         }
-
-        if(!res.ok && "error" in result) {
-            setServerError(result?.error || "Something went wrong");
-            return;
-        }
-
-        console.log("Login successful", result);
     }
 
     return (
