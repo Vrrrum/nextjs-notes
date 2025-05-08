@@ -72,3 +72,44 @@ export async function POST(request: Request): Promise<NextResponse | undefined> 
         return NextResponse.json("Internal Server Error", { status: 500 });
     }
 }
+
+export async function PUT(request: Request): Promise<NextResponse | undefined> {
+    const session: Session | null = await getServerSession(authOptions);
+
+    if(!session) {
+        return NextResponse.json("Unauthorized", { status: 401 });
+    }
+
+    const body = await request.json();
+    const { id, title, content } = body;
+
+    try {
+        const user = await prisma.user.findUnique({
+            where: { email: session.user?.email },
+        });
+
+        if (!user) {
+            return NextResponse.json("User not found", { status: 404 });
+        }
+
+        if (!id || typeof id !== "string") {
+            return NextResponse.json("Invalid id", { status: 400 });
+        }
+
+        const note = await prisma.note.update({
+            where: { id },
+            data: {
+                title,
+                content,
+            },
+        });
+
+        return NextResponse.json(note, {
+            status: 200,
+            headers: { "Content-Type": "application/json" },
+        });
+    } catch (error) {
+        console.error("Error updating note:", error);
+        return NextResponse.json("Internal Server Error", { status: 500 });
+    }
+}
