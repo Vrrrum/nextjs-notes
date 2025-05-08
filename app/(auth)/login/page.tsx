@@ -13,11 +13,11 @@ type FormData = {
     re_password: string;
 };
 
-type LoginResponse = {
-    id: string;
-    email: string;
-    username: string;
-} | {error: string};
+// type LoginResponse = {
+//     id: string;
+//     email: string;
+//     username: string;
+// } | {error: string};
 
 export default function Login() {
     const [serverError, setServerError] = useState("");
@@ -30,44 +30,6 @@ export default function Login() {
     } = useForm<FormData>();
 
     const onSubmit = async (data: FormData) => {
-        // setServerError("");
-        //
-        // if(!data.password || !data.email) {
-        //     setServerError("Email and password are required");
-        //     return;
-        // }
-        //
-        // const res = await fetch("/api/login", {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify(data),
-        // });
-        //
-        // let result: LoginResponse;
-        //
-        // try {
-        //     result = await res.json();
-        // } catch (e) {
-        //     const message =
-        //         e instanceof Error
-        //             ? e.message
-        //             : typeof e === "string"
-        //                 ? e
-        //                 : "Something went wrong";
-        //
-        //     setServerError(message);
-        //     return;
-        // }
-        //
-        // if(!res.ok && "error" in result) {
-        //     setServerError(result?.error || "Something went wrong");
-        //     return;
-        // }
-        //
-        // console.log("Login successful", result);
-
         const res = await signIn("credentials", {
             email: data.email,
             password: data.password,

@@ -24,8 +24,8 @@ export const authOptions: NextAuthOptions = {
                 if (!isValid) return null;
 
                 return {
-                    id: user.id,
-                    email: user.email,
+                    id: user.id || "",
+                    email: user.email || "",
                     username: user.username || "",
                 };
             },
