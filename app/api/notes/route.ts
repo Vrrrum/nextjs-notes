@@ -51,6 +51,10 @@ export async function POST(request: Request): Promise<NextResponse | undefined> 
             return NextResponse.json("User not found", { status: 404 });
         }
 
+        if (!title || typeof title !== "string") {
+            return NextResponse.json("Invalid title", { status: 400 });
+        }
+
         const note = await prisma.note.create({
             data: {
                 title,

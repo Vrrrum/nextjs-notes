@@ -2,9 +2,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Navbar from "@/components/navbar/Navbar";
-import {PrismaClient} from "@/app/generated/prisma";
-
-const prisma = new PrismaClient();
+import { prisma } from "@/lib/prisma";
 
 export default async function DashboardPage() {
     const session = await getServerSession(authOptions);
