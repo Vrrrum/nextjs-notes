@@ -38,7 +38,7 @@ export default function NewNotePopup({setShowNewNotePopup}: {setShowNewNotePopup
                 <h2 className="text-xl font-bold mb-4">Create New Note</h2>
                 <form  onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-4">
                     <input type="text" value={newNoteTitle} onChange={(e) => setNewNoteTitle(e.target.value)} placeholder="New note" className="p-2 border rounded" />
-                    <button type="button"  onClick={handleCreateNote} className="bg-blue-500 text-white p-2 rounded">Create Note</button>
+                    <button type="button"  onClick={handleCreateNote} className="button">Create Note</button>
                 </form>
             </div>
         </div>

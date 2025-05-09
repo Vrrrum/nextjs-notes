@@ -33,6 +33,7 @@ const Navbar: React.FC<Props> = ({setNotes, notes, selectedNoteId, setSelectedNo
             <NavbarHeader/>
             <NotesList
                 notes={notes}
+                setNotes={setNotes}
                 selectedNoteId={selectedNoteId}
                 setSelectedNoteId={setSelectedNoteId} />
             <div className="flex justify-center p-1 mx-2 text-xl bg-neutral-700 rounded-xl hover:bg-neutral-600 hover:cursor-pointer" onClick={() => setShowNewNotePopup(true)}>

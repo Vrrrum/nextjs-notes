@@ -3,7 +3,7 @@
 import { redirect } from "next/navigation";
 import Navbar from "@/components/navbar/Navbar";
 import {useSession} from "next-auth/react";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import {Note} from "@/types/notes";
 
 export default function DashboardPage() {

@@ -34,5 +34,5 @@ body {
 }
 
 .button {
-  @apply bg-violet-900 w-48 text-white rounded px-4 py-2 hover:bg-blue-600 transition self-center;
+  @apply bg-violet-900 w-48 text-white rounded px-4 py-2 hover:bg-violet-600 transition self-center;
 }
