@@ -7,13 +7,18 @@ import {useEffect, useState} from "react";
 import {Note} from "@/types/notes";
 
 export default function DashboardPage() {
-    const {data: session} = useSession();
+    const {data: session, status} = useSession();
     const [notes, setNotes] = useState<Note[]>([]);
     const [selectedNoteId, setSelectedNoteId] = useState<string | null>(null);
 
-    if (!session) {
-        redirect("/login");
-    }
+
+    useEffect(() => {
+        if (status === "unauthenticated") {
+            redirect("/login");
+        }
+    }, [status]);
+
+    console.log("Session:", session);
 
     const selectedNote = notes.find(note => note.id === selectedNoteId);
 
@@ -27,6 +32,8 @@ export default function DashboardPage() {
     };
 
     useEffect(() => {
+        if(!selectedNote) return;
+
         fetch("/api/notes",
             {
                 method: "PUT",

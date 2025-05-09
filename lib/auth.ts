@@ -33,12 +33,13 @@ export const authOptions: NextAuthOptions = {
     ],
     pages: {
         signIn: "/login",
-        error: "/login",  // Możesz odczytać `error` z query param
-        newUser: "/register", // Umożliwia rejestrację
+        error: "/login",
+        newUser: "/register",
     },
     session: {
         strategy: "jwt",
-        maxAge: 24 + 60 * 60,
+        maxAge: 24 * 60 * 60,
+        updateAge: 60 * 60,
     },
     callbacks: {
         async jwt({ token, user }) {
@@ -56,4 +57,5 @@ export const authOptions: NextAuthOptions = {
             return session;
         },
     },
+    secret: process.env.NEXTAUTH_SECRET,
 };
