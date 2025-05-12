@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Notes - Note the fuck out of life",
-  description: "Fucking decent not taking app. No bullshit",
+  title: "Notes",
+  description: "Decent not taking app. No bullshit",
 };
 
 export default function RootLayout({

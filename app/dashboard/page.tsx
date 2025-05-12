@@ -1,24 +1,14 @@
 "use client";
 
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Navbar from "@/components/navbar/Navbar";
 import {useSession} from "next-auth/react";
 import {useEffect, useState} from "react";
 import {Note} from "@/types/notes";
 
 export default function DashboardPage() {
-    const {data: session, status} = useSession();
     const [notes, setNotes] = useState<Note[]>([]);
     const [selectedNoteId, setSelectedNoteId] = useState<string | null>(null);
-
-
-    useEffect(() => {
-        if (status === "unauthenticated") {
-            redirect("/login");
-        }
-    }, [status]);
-
-    console.log("Session:", session);
 
     const selectedNote = notes.find(note => note.id === selectedNoteId);
 
@@ -34,15 +24,19 @@ export default function DashboardPage() {
     useEffect(() => {
         if(!selectedNote) return;
 
-        fetch("/api/notes",
-            {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
+        try {
+            fetch("/api/notes",
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(selectedNote),
                 },
-                body: JSON.stringify(selectedNote),
-            },
-        );
+            );
+        } catch (e) {
+            console.error("Error updating note:", e);
+        }
     }, [selectedNote]);
 
 

@@ -11,6 +11,12 @@ export default function NewNotePopup({setShowNewNotePopup}: {setShowNewNotePopup
         e.stopPropagation();
     };
 
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+            handleCreateNote();
+        }
+    };
+
     const handleCreateNote = () => {
         setShowNewNotePopup(false);
 
@@ -37,7 +43,12 @@ export default function NewNotePopup({setShowNewNotePopup}: {setShowNewNotePopup
             <div className="bg-neutral-700 p-4 rounded shadow-lg" onClick={stopPropagation}>
                 <h2 className="text-xl font-bold mb-4">Create New Note</h2>
                 <form  onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-4">
-                    <input type="text" value={newNoteTitle} onChange={(e) => setNewNoteTitle(e.target.value)} placeholder="New note" className="p-2 border rounded" />
+                    <input type="text"
+                           value={newNoteTitle}
+                           onChange={(e) => setNewNoteTitle(e.target.value)}
+                           onKeyDown={handleKeyDown}
+                           placeholder="New note"
+                           className="p-2 border rounded" />
                     <button type="button"  onClick={handleCreateNote} className="button">Create Note</button>
                 </form>
             </div>

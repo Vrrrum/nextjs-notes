@@ -29,7 +29,7 @@ const Navbar: React.FC<Props> = ({setNotes, notes, selectedNoteId, setSelectedNo
     }, [showNewNotePopup]);
 
     return (
-        <div className="bg-neutral-800 w-50 h-full">
+        <div className="bg-neutral-800 w-50 h-full overflow-y-auto">
             <NavbarHeader/>
             <NotesList
                 notes={notes}
