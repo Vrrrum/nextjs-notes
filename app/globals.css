@@ -36,3 +36,26 @@ body {
 .button {
   @apply bg-violet-900 w-48 text-white rounded px-4 py-2 hover:bg-violet-600 transition self-center;
 }
+
+.markdown-preview {
+    @apply bg-neutral-700 min-h-full p-4 rounded-lg text-white;
+}
+
+.markdown-preview h1{
+  @apply text-3xl font-bold mb-4;
+}
+
+.markdown-preview h2{
+  @apply text-2xl font-bold mb-4;
+}
+
+.markdown-preview h3{
+  @apply text-xl font-bold mb-4;
+}
+
+.markdown-preview ul {
+  @apply list-disc ml-5 mb-4;
+}
+.markdown-preview li {
+  @apply list-decimal ml-5 mb-4;
+}
